@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='ascii'?>
+<DIRS AddressMode="2" Writable="0x1">
+<!-- hidden -->
+<!-- PSP L1 DIR -->
+  <PSP_DIR AddressMode="0x1" Base="0x000F1000" Level="0x1" SpiBlockSize="0x1000">
+    <!-- STX   ISH PSP L1 -->
+    <POINT_ENTRY Type="0x48" Address="0x000F2000" Size="0x0"/>
+    <POINT_ENTRY Type="0x4A" Address="0x000F2000" Size="0x0"/>
+    <!-- KRK1  ISH PSP L1 -->
+    <POINT_ENTRY Type="0x48" Address="0x000F4000" Size="0x0"/>
+    <POINT_ENTRY Type="0x4A" Address="0x000F4000" Size="0x0"/>
+    <!-- KRK2e ISH PSP L1 -->
+    <POINT_ENTRY Type="0x48" Address="0x000F6000" Size="0x0"/>
+    <POINT_ENTRY Type="0x4A" Address="0x000F6000" Size="0x0"/>
+  </PSP_DIR>
+
+
+<!-- STX ISH (Image Slot Header) DIR -->
+  <ISH_HEADER AddressMode="0x1" Base="0x000F2000" PspId="0xbc0e0200" Location="0x000F8000" BootPriority="0xffffffff" GlitchRetries="0x0" Reserved_1="0xffffffff" SlotMaxSize="0xffffffff" UpdateRetries="0xf" SpiBlockSize="0x1000"/>
+
+<!-- KRK1 ISH (Image Slot Header) DIR -->
+  <ISH_HEADER AddressMode="0x1" Base="0x000F4000" PspId="0xbc0e0b00" Location="0x000F8000" BootPriority="0xffffffff" GlitchRetries="0x0" Reserved_1="0xffffffff" SlotMaxSize="0xffffffff" UpdateRetries="0xf" SpiBlockSize="0x1000"/>
+
+<!-- KRK2e ISH (Image Slot Header) DIR -->
+  <ISH_HEADER AddressMode="0x1" Base="0x000F6000" PspId="0xbc0e1000" Location="0x000F8000" BootPriority="0xffffffff" GlitchRetries="0x0" Reserved_1="0xffffffff" SlotMaxSize="0xffffffff" UpdateRetries="0xf" SpiBlockSize="0x1000"/>
+
+<!-- Image slot A PSP DIR-->
+  <PSP_DIR Level="2" Base="0x000F8000" Size="0x004C4000" SpiBlockSize="0x1000" HeaderVersion="1" DirHeaderSize="0x800">
+    <!-- PSP Non Volatile data -->
+    <POINT_ENTRY Type="0x04" Address="0x00C9D000" Size="0x00020000" AddressMode="1"/>
+    <!-- AMD Secure Debug Key -->
+    <IMAGE_ENTRY Type="0x09" File="TypeId0x09_SecureDebugUnlockKey_STX.stkn"/>
+    <!--Need  update PlatformOverride.mak as well if need update 0x0B value-->
+    <VALUE_ENTRY Type="0x0B" Value="0x2000C041"/>
+
+    <!-- hidden -->
+
+    <POINT_ENTRY Type="0x49" Address="0x00AD7000" Size="0x00000400"/>
+
+    <!-- hidden -->
+
+  </PSP_DIR>
+
+<!-- Image slot A BIOS DIR-->
+  <BIOS_DIR Level="2" Base="0x00BCF000" Size="0x00088000" SpiBlockSize="0x1000">
+    <!-- hidden -->
+
+    <IMAGE_ENTRY Type="0x20" File="TypeId0x20_STX.sbin" SubProgram="0x00"/>
+    <IMAGE_ENTRY Type="0x20" File="TypeId0x20_KRK.sbin" SubProgram="0x01"/>
+    <IMAGE_ENTRY Type="0x20" File="TypeId0x20_KRK2e.sbin" SubProgram="0x02"/>
+
+    <!-- hidden -->
+
+  </BIOS_DIR>
+
+</DIRS>
