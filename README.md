@@ -8,8 +8,8 @@ A Python-based BIOS firmware automation tool for verifying AMD Platform Security
 
 | Branch / Workflow | Build Status |
 | :--- | :---: |
-| **Main Branch** | [![Python Build](https://github.com/yishawnpeng/binary_check_by_xml/actions/workflows/Python_build.yml/badge.svg)](https://github.com/yishawnpeng/binary_check_by_xml/actions) |
-| **Release Build** | [![binary_check Build Release](https://github.com/yishawnpeng/binary_check_by_xml/actions/workflows/Release-build.yml/badge.svg)](https://github.com/yishawnpeng/binary_check_by_xml/actions) |
+| **Main Branch** | [![binary_check Build](https://github.com/yishawnpeng/binary_check_by_xml/actions/workflows/Python_build.yml/badge.svg)](https://github.com/yishawnpeng/binary_check_by_xml/actions/workflows/Python_build.yml) |
+| **Release Build** | [![binary_check Build Release](https://github.com/yishawnpeng/binary_check_by_xml/actions/workflows/Release-build.yml/badge.svg)](https://github.com/yishawnpeng/binary_check_by_xml/actions/workflows/Release-build.yml) |
 
 ---
 
