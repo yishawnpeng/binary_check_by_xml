@@ -3,14 +3,18 @@ import glob
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
+import argparse
+
+version = "1.0"
 
 class PSPParser:
-    def __init__(self, bin_path=None, platform_config=None):
+    def __init__(self, bin_path=None, xml_path=None, platform_config=None):
         """
         Parser for AMD Platform Security Processor (PSP) structures from Binary and XML.
         """
         self.data = None
         self.bin_path = bin_path
+        self.xml_path = xml_path
         self.platform_config = platform_config
 
         self.xml_path = None
@@ -23,8 +27,10 @@ class PSPParser:
         self.xml_psp_l2A_table = None
 
         self._load_bin()
-        if self.platform_config:
-            self._load_xml()
+        if self.xml_path:
+            self._load_xml_manually()
+        elif self.platform_config:
+            self._load_xml_auto()
 
     def _load_bin(self):
         """
@@ -56,7 +62,20 @@ class PSPParser:
         except Exception as e:
             print(f"ERROR: Failed to read file - {e}")
 
-    def _load_xml(self):
+    def _load_xml_manually(self):
+        self.xml_path = Path(self.xml_path)
+        if not self.xml_path.exists():
+            print(f"ERROR: Specified XML file '{self.xml_path}' not found.")
+            return
+        try:
+            parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
+            tree = ET.parse(self.xml_path, parser=parser)
+            self.xml_root = tree.getroot()
+            print(f"Loaded Specified XML: {self.xml_path.name}")
+        except Exception as e:
+            print(f"ERROR: Failed to parse specified XML - {e}")
+
+    def _load_xml_auto(self):
         """
         Finds and parses the BIOSImageDirectory XML based on platform configuration.
         """
@@ -77,7 +96,7 @@ class PSPParser:
             return
         
         for f in xml_files:
-            if target_suffix in f:
+            if f.endswith(target_suffix) or (target_suffix in f):
                 self.xml_path = Path(f)
                 break
         
@@ -267,10 +286,21 @@ class PSPParser:
         return None
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog='binary_check.py', 
+        description='AMD PSP/ISH Binary Structure Checker'
+    )
+    parser.add_argument("-v", "--version", action="version", version=f"%(prog)s {version}")
+    
+    parser.add_argument("-b", "--bin", dest="bin_path", help="Specify the path to the BIOS .bin file", default=None)
+    parser.add_argument("-x", "--xml", dest="xml_path", help="Specify the path to the BIOSImageDirectory .xml file", default=None)
+    
+    #parser.add_argument("bin_file", nargs="?", help="Path to the BIOS binary file", default=None)
+    args = parser.parse_args()
     # Check if a filename was provided as a command-line argument
-    input_file = None
-    if len(sys.argv) > 1:
-        input_file = sys.argv[1]
+    #input_file = None
+    #if len(sys.argv) > 1:
+    #    input_file = sys.argv[1]
     
     # Define platform categories
     # User need to check with xml defined
@@ -282,7 +312,8 @@ if __name__ == "__main__":
         "X21": {"type": "Intel", "xml_block_comment":None, "xml_end": None}
     }
     # Initialize parser (will auto-detect bin if no argument passed)
-    parser = PSPParser(bin_path=input_file, platform_config=PLATFORM_DATA)
+    #parser = PSPParser(bin_path=input_file, platform_config=PLATFORM_DATA)
+    parser = PSPParser(bin_path=args.bin_path, xml_path=args.xml_path, platform_config=PLATFORM_DATA)
 
     if parser.data:
         file_name = parser.bin_path.name.upper()
