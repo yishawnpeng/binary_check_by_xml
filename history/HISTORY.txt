@@ -1,3 +1,11 @@
+v2.1 2026-06-23
+-------------
+1.Because hpAmd gne xml tool issue, "KRK1" need to change to "KRK" for match in ISH_HEADER block comment
+
+v2 2026-05-18
+-------------
+1.pipe line work flow
+
 v1 2026-05-18
 -------------
 1.Base function

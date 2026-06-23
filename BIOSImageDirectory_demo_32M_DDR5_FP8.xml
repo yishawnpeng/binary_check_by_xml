@@ -18,7 +18,7 @@
 <!-- STX ISH (Image Slot Header) DIR -->
   <ISH_HEADER AddressMode="0x1" Base="0x000F2000" PspId="0xbc0e0200" Location="0x000F8000" BootPriority="0xffffffff" GlitchRetries="0x0" Reserved_1="0xffffffff" SlotMaxSize="0xffffffff" UpdateRetries="0xf" SpiBlockSize="0x1000"/>
 
-<!-- KRK1 ISH (Image Slot Header) DIR -->
+<!-- KRK ISH (Image Slot Header) DIR -->
   <ISH_HEADER AddressMode="0x1" Base="0x000F4000" PspId="0xbc0e0b00" Location="0x000F8000" BootPriority="0xffffffff" GlitchRetries="0x0" Reserved_1="0xffffffff" SlotMaxSize="0xffffffff" UpdateRetries="0xf" SpiBlockSize="0x1000"/>
 
 <!-- KRK2e ISH (Image Slot Header) DIR -->
