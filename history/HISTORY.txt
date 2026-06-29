@@ -1,3 +1,7 @@
+v2.2 2026-06-23
+-------------
+1.Support Y27 AMD
+
 v2.1 2026-06-23
 -------------
 1.Because hpAmd gne xml tool issue, "KRK1" need to change to "KRK" for match in ISH_HEADER block comment
